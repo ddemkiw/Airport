@@ -4,7 +4,7 @@ class Airplane
     take_off!
   end
  
-  def land!
+  def landing!
     @flying = false
   end
 
