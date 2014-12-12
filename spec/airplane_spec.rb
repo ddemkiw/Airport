@@ -1,6 +1,5 @@
 require 'airplane'
 
-
 describe Airplane do
 
 let(:plane) { Airplane.new }
@@ -16,7 +15,7 @@ let(:plane) { Airplane.new }
 
   it "should be able to take off" do
     plane.landing!
-    plane.take_off!
+    plane.taking_off!
     expect(plane).to be_flying
   end
 
