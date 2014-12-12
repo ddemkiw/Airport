@@ -18,6 +18,7 @@ def plane_count
 end
 
 def land(plane)
+  raise "Airport is full" if full?
   plane.landing!
   planes << plane
 end

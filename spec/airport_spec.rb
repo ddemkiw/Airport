@@ -25,8 +25,9 @@ describe Airport do
   end
 
    it "should not accept a plane if it's full" do
+    allow(plane).to receive(:landing!) 
     10.times { airport.land(plane) }
-    expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, 'Sorry! No more room for planes')
+    expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, 'Airport is full')
   end
 
 end
