@@ -4,8 +4,13 @@ class Airplane
     taking_off!
   end
  
+  def airspace
+    airspace ||= []
+  end
+
   def landing!
     @flying = false
+    
   end
 
   def flying? 

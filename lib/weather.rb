@@ -1,11 +1,12 @@
-module WeatherConditions
+module Weather
 
-def weather
-  @weather = [storm, stormbrewing, sunny]
-end
+STORM_THRESHOLD = 90
 
-def random_weather
-  #should randomly select a position in the array
+WEATHER_VARIANCE = 100
+
+def stormy_weather?
+  @stormy = false
+  rand(WEATHER_VARIANCE) > STORM_THRESHOLD ? !@stormy : @stormy
 end
 
 end

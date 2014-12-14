@@ -14,24 +14,28 @@ describe Airport do
   let(:airport) {Airport.new}
   let(:plane) {Airplane.new}
 
-  context 'taking off and landing' do
 
-    it 'a plane can land' do
-    airport.land(plane)
+    context 'taking off and landing' do
+
+      it 'a plane can land' do
+        allow(airport).to receive(:stormy_weather?) {false}
+        airport.land(plane)
+      end
+
+      it 'a plane can take off' do
+        allow(airport).to receive(:stormy_weather?) {false}
+        airport.land(plane)  
+        airport.take_off(plane)
+      end
     end
 
-    it 'a plane can take off' do
-    airport.land(plane)  
-    airport.take_off(plane)
-    end
-  end
+    context 'traffic control' do
 
-  context 'traffic control' do
-
-    it 'a plane cannot land if the airport is full' do
-    10.times { airport.land(plane) }
-    expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, 'Airport is full')
-    end
+      it 'a plane cannot land if the airport is full' do
+        allow(airport).to receive(:stormy_weather?) {false}
+        6.times { airport.land(Airplane.new) }
+        expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, 'Airport is full')
+      end
 
     # Include a weather condition using a module.
     # The weather must be random and only have two states "sunny" or "stormy".
@@ -44,11 +48,13 @@ describe Airport do
     context 'weather conditions' do
 
       it 'a plane cannot take off when there is a storm brewing' do
-
+        allow(airport).to receive(:stormy_weather?) {true}
+        expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, "a plan cannot land if the weather is stormy")
       end
 
       it 'a plane cannot land in the middle of a storm' do
-
+        allow(airport).to receive(:stormy_weather?) {true}
+        expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, "a plan cannot land if the weather is stormy")
       end
     end
   end
@@ -60,36 +66,55 @@ end
 # #
 # # When the plane takes of from the airport, the plane's status should become "flying"
 
-# describe Plane do
+ describe Airplane do
 
-#   let(:plane) { Plane.new }
+   let(:plane) { Airplane.new }
 
-#   it 'has a flying status when created' do
+    it 'has a flying status when created' do
+      expect(plane).to be_flying
+    end
 
-#   end
+    it 'has a flying status when in the air' do
+      plane.taking_off!
+      expect(plane).to be_flying
+    end
 
-#   it 'has a flying status when in the air' do
+    it 'can take off' do
+      plane.landing!
+      plane.taking_off!
+      expect(plane).to be_flying
+    end
 
-#   end
+    it 'changes its status to flying after taking of' do
+      plane.landing!
+      expect(plane).not_to be_flying
+      plane.taking_off!
+      expect(plane).to be_flying
+    end
+end
 
-#   it 'can take off' do
+# grand final
+# Given 6 planes, each plane must land. When the airport is full, every plane must take off again.
+# Be careful of the weather, it could be stormy!
+# Check when all the planes have landed that they have the right status "landed"
+# Once all the planes are in the air again, check that they have the status of flying!
 
-#   end
+describe "The grand finale (last spec)" do
 
-#   it 'changes its status to flying after taking of' do
+  let(:airport) {Airport.new}
+  let(:plane) {Airplane.new}
 
-#   end
-# end
+  it 'all planes can land' do
+    allow(airport).to receive(:stormy_weather?) {false}
+    6.times { airport.land(Airplane.new) }
+    expect(airport.plane_count).to eq(6)
+  end
 
-# # grand final
-# # Given 6 planes, each plane must land. When the airport is full, every plane must take off again.
-# # Be careful of the weather, it could be stormy!
-# # Check when all the planes have landed that they have the right status "landed"
-# # Once all the planes are in the air again, check that they have the status of flying!
+  it 'all planes can take off' do
+    allow(airport).to receive(:stormy_weather?) {false}
+    6.times {airport.land(Airplane.new) }
+    6.times {airport.take_off(plane) }
+    expect(airport.plane_count).to eq(0)
+  end
 
-# describe "The grand finale (last spec)" do
-
-#   it 'all planes can land and all planes can take off' do
-
-#   end
-# end
+end

@@ -1,13 +1,12 @@
-require './lib/weatherconditions.rb'
+# require 'weather'
 
-class Weather; include WeatherConditions; end
+# class WeatherConditions; include Weather; end
 
-describe WeatherConditions do
+# describe Weather do
   
-  let(:weather_now) {WeatherConditions.new}
+#   let(:weather) {WeatherConditions.new}
 
-  it "should have three types of weather"
-  expect(weather.length).to eq(3)
-  end
+#   it "should mostly be sunny"
+#   end
 
-end
+# end

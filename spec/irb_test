@@ -2,9 +2,24 @@ irb
 
 require './lib/airport.rb'
 require './lib/airplane.rb'
+require './lib/weather.rb'
 
-plane = Airplane.new
+plane 	= Airplane.new
+plane2 = Airplane.new
+plane3 = Airplane.new
+
+
 airport = Airport.new
 
 airport.land(plane)
+airport.land(plane2)
+airport.land(plane3)
+)
+
+
+airport.take_off(plane)
+airport.take_off(plane2)
+airport.take_off(plane3)
+
+
 
