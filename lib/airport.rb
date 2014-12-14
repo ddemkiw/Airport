@@ -23,9 +23,19 @@ def land(plane)
   planes << plane
 end
 
+def take_off(plane)
+  raise "No planes currently landed at airport" if airport_empty?
+  planes.delete(plane)
+end
+
 def full?
   plane_count == DEFAULT_CAPACITY
 end
+
+
+  def airport_empty?
+    plane_count <= 0
+  end
 
 
 end

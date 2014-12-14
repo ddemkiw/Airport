@@ -1,0 +1,10 @@
+irb
+
+require './lib/airport.rb'
+require './lib/airplane.rb'
+
+plane = Airplane.new
+airport = Airport.new
+
+airport.land(plane)
+
