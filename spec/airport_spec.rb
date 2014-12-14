@@ -1,7 +1,6 @@
   
 require 'airport'
-class Weather; include WeatherConditions; end
-
+require 'airplane'
 
 # A plane currently in the airport can be requested to take off.
 #
@@ -13,29 +12,23 @@ class Weather; include WeatherConditions; end
 describe Airport do
 
   let(:airport) {Airport.new}
-  let(:plane) {double :plane}
-  let(:landed_plane) {double :plane, flying?: false}
+  let(:plane) {Airplane.new}
 
   context 'taking off and landing' do
 
     it 'a plane can land' do
-    expect(plane).to receive(:landing!)
     airport.land(plane)
     end
 
     it 'a plane can take off' do
-    allow(landed_plane).to receive(:landing!) 
-    airport.land(landed_plane)  
-    allow(landed_plane).to receive(:taking_off)
-    airport.take_off(landed_plane)
-    
+    airport.land(plane)  
+    airport.take_off(plane)
     end
   end
 
   context 'traffic control' do
 
     it 'a plane cannot land if the airport is full' do
-    allow(plane).to receive(:landing!) 
     10.times { airport.land(plane) }
     expect(lambda { airport.land(plane) }).to raise_error(RuntimeError, 'Airport is full')
     end
