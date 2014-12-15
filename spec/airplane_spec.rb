@@ -28,7 +28,7 @@ describe Airplane do
       plane.taking_off!
       expect(plane).to be_flying
     end
-end
+  end
 
   context 'traffic control' do
     
