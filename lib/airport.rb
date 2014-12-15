@@ -15,20 +15,22 @@ class Airport
     @planes ||= []
   end
 
+  def landed_planes
+    @planes
+  end
+
   def plane_count
     planes.count
   end
 
   def land(plane)
-    raise "a plan cannot land if the weather is stormy" if stormy_weather? 
-    raise "Airport is full" if full?
+    landing_errors(plane)
     plane.landing!
     planes << plane
   end
 
-  def take_off(plane)
-    raise "a plan cannot take off if the weather is stormy" if stormy_weather? 
-    raise "No planes currently landed at airport" if airport_empty?
+  def launch(plane)
+    launching_errors
     plane.taking_off!
     planes.delete(plane)
   end
@@ -37,10 +39,21 @@ class Airport
     plane_count == DEFAULT_CAPACITY
   end
 
-
   def airport_empty?
     plane_count <= 0
   end
+  
+  def launching_errors
+    raise "No planes currently landed at airport" if airport_empty?
+    raise "a plane cannot launch if the weather is stormy" if stormy_weather? 
+  end
+
+  def landing_errors(plane)
+    raise "Plane is already landed" if !plane.flying?
+    raise "a plane cannot land if the weather is stormy" if stormy_weather? 
+    raise "Airport is full" if full?
+  end
+
 
 
 end
