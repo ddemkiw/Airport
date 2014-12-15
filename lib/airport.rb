@@ -49,7 +49,6 @@ class Airport
   end
 
   def landing_errors(plane)
-    raise "Plane is already landed" if !plane.flying?
     raise "a plane cannot land if the weather is stormy" if stormy_weather? 
     raise "Airport is full" if full?
   end
