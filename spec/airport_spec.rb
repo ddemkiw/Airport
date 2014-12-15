@@ -34,9 +34,9 @@ describe Airport do
       end
 
       it 'a plane cannot be launched from an empty airport' do
-      p airport
       expect(lambda { airport.launch(plane) }).to raise_error(RuntimeError, 'No planes currently landed at airport')
       end
+    end 
 
     context 'weather conditions' do
 
@@ -50,44 +50,6 @@ describe Airport do
         allow(airport).to receive(:stormy_weather?) {true}
         expect(lambda { airport.launch(plane) }).to raise_error(RuntimeError, "a plane cannot launch if the weather is stormy")
       end
-
-    end
-  end
-end
-
-describe Airplane do
-
-  let(:plane) { Airplane.new }
-
-  it 'should have a flying status when created' do 
-    expect(plane).to be_flying
-  end
-
-  it 'should be able to land' do
-    plane.landing!
-    expect(plane).not_to be_flying
-  end
-
-  it 'should be able to launch' do
-    plane.landing!
-    plane.taking_off!
-    expect(plane).to be_flying
-  end
-
-  it 'should change its status to flying after launch' do
-    plane.landing!
-    expect(plane).not_to be_flying
-    plane.taking_off!
-    expect(plane).to be_flying
-  end
-
-  it 'a plane cannot take off if it is already flying' do 
-    expect(lambda { plane.taking_off! }).to raise_error(RuntimeError, 'Plane is already flying')
-  end
-
-  it 'a plane cannot land if it is not flying' do
-    plane.landing!
-    expect(lambda { plane.landing! }).to raise_error(RuntimeError, 'Plane is already landed')
   end
 end
 
