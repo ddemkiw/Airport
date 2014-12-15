@@ -10,7 +10,8 @@ describe Airplane do
   end
 
   context 'launching and landing' do
-      before(:each) do plane.landing! end
+    
+    before(:each) do plane.landing! end
     
     it 'should be able to land' do
       expect(plane).not_to be_flying
