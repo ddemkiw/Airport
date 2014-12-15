@@ -11,13 +11,13 @@ describe Airport do
 
     context 'launching and landing' do
 
+      before(:each) do allow(airport).to receive(:stormy_weather?) {false} end
+
       it 'a plane can land' do
-        allow(airport).to receive(:stormy_weather?) {false}
         airport.land(plane)
       end
 
       it 'a plane can launch' do
-        allow(airport).to receive(:stormy_weather?) {false}
         airport.land(plane)  
         airport.launch(plane)
         expect(airport.plane_count).to eq(0)

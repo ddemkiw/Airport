@@ -48,9 +48,6 @@ describe "The grand finale (last spec)" do
 
 end
 
-
-
-
 #Helper methods
 
   def land_6_planes
@@ -65,10 +62,4 @@ end
     planes.each {|plane| airport.land(plane)}
     planes.each {|plane| airport.launch(plane)}
   end
-
-
-
-
-
-
 end

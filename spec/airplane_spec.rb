@@ -10,21 +10,22 @@ describe Airplane do
   end
 
   context 'launching and landing' do
+      before(:each) do plane.landing! end
     
     it 'should be able to land' do
-      plane.landing!
       expect(plane).not_to be_flying
     end
 
+    it 'should not be flying after landing' do
+      expect(plane).not_to be_flying
+    end
+    
     it 'should be able to launch' do
-      plane.landing!
       plane.taking_off!
       expect(plane).to be_flying
     end
 
-    it 'should change its status to flying after launch' do
-      plane.landing!
-      expect(plane).not_to be_flying
+    it 'should be flying after taking off' do
       plane.taking_off!
       expect(plane).to be_flying
     end
